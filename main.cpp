@@ -4,6 +4,7 @@
 #include <cmath>
 
 using namespace std;
+const double max_error=0.01;
 
 int main()
 {
@@ -27,5 +28,12 @@ int main()
 	b=real(1.5, 1.0);
 	assert(a > b);
 	assert( b < a);
+
+	a=real(1.0, 1.0);
+	b=real(1.5, 0.5);
+	a=a.combine(b);
+	cout << string(a) << endl;
+	assert(abs(1.5-a.number()) <= max_error);
+	assert(abs(0.5-a.error()) <= max_error);
 	return 0;
 }

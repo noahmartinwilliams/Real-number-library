@@ -7,6 +7,7 @@ using namespace std;
 class real {
 	public:
 		real(double number, double error);
+		class real combine(class real rhs);
 		operator string();
 		void operator = (class real rhs);
 		int operator == (class real rhs);

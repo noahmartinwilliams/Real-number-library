@@ -6,6 +6,7 @@
 #include <iostream>
 
 #define max(x, y) ((x > y) ? x : y)
+#define min(x, y) ((x > y) ? y : x)
 using namespace std;
 
 real::real(double number, double error)
@@ -17,6 +18,14 @@ real::real(double number, double error)
 class real real::operator + (class real rhs)
 {
 	return real(number()+rhs.number(), error()+rhs.error());
+}
+
+class real real::combine(class real rhs)
+{
+	double maximum=min(rhs.number()+rhs.error(), (*this).number()+(*this).error());
+	double minimum=max(rhs.number()-rhs.error(), (*this).number()-(*this).error());
+	class real ret((maximum+minimum)/2.0, (maximum-minimum)/2.0);
+	return ret;
 }
 
 class real real::operator - (class real rhs)
