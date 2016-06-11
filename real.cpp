@@ -1,18 +1,44 @@
 #include "real.h"
+#ifndef ARDUINO
 #include <cmath>
 #include <string>
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
+#define String string
+using namespace std;
+#else
+#include "Arduino.h"
+#endif
 
 #define max(x, y) ((x > y) ? x : y)
 #define min(x, y) ((x > y) ? y : x)
-using namespace std;
+
+const int num_sig_figs=3;
+
+real::real(class real& r)
+{
+	err=r.err;
+	num=r.num;
+}
+
+real::real(const class real& r)
+{
+	num=r.num;
+	err=r.err;
+}
 
 real::real(double number, double error)
 {
 	num=number;
 	err=error;
+}
+
+
+real::real(volatile class real& r)
+{
+	num=r.num;
+	err=r.err;
 }
 
 class real real::operator + (class real rhs)
@@ -24,8 +50,7 @@ class real real::combine(class real rhs)
 {
 	double maximum=min(rhs.number()+rhs.error(), (*this).number()+(*this).error());
 	double minimum=max(rhs.number()-rhs.error(), (*this).number()-(*this).error());
-	class real ret((maximum+minimum)/2.0, (maximum-minimum)/2.0);
-	return ret;
+	return real((maximum+minimum)/2.0, (maximum-minimum)/2.0);
 }
 
 class real real::operator - (class real rhs)
@@ -53,8 +78,9 @@ int real::operator == (class real rhs)
 		return 0;
 }
 
-real::operator string()
+real::operator String()
 {
+	#ifndef ARDUINO
 	char *n=NULL;
 	char *e=NULL;
 	asprintf(&n, "%F", number());
@@ -64,12 +90,21 @@ real::operator string()
 	free(n);
 	free(e);
 	return ret;
+	#else
+	return String(num, num_sig_figs)+String("±")+String(err, num_sig_figs);
+	#endif
 }
 
 void real::operator = (class real rhs)
 {
 	error(rhs.error());
 	number(rhs.number());
+}
+
+void real::operator = (double d)
+{
+	num=d;
+	err=0.0;
 }
 
 double real::error()
@@ -106,4 +141,36 @@ int real::operator < (class real rhs)
 		return 1;
 	else
 		return 0;
+}
+
+class real real::operator + (double d)
+{
+	return real(number()+d, error());
+}
+
+void real::operator += (double d)
+{
+	num+=d;
+}
+
+real::real()
+{
+	num=0.0;
+	err=0.0;
+}
+
+real::real(double d)
+{
+	num=d;
+	err=0.0;
+}
+
+int real::operator > (int i)
+{
+	return (*this) > (double(i));
+}
+
+class real real::operator - ()
+{
+	return real(-number(), error());
 }
