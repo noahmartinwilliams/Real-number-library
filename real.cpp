@@ -1,3 +1,4 @@
+#define __REAL_CPP__
 #include "real.h"
 #ifndef ARDUINO
 #include <cmath>
@@ -61,13 +62,13 @@ class real real::operator - (class real rhs)
 class real real::operator * (class real rhs)
 {
 	double answer=number()*rhs.number();
-	return real(answer, answer*((error()/number()) + (rhs.error()/rhs.number())));
+	return real(answer, abs(answer)*((error()/number()) + (rhs.error()/rhs.number())));
 }
 
 class real real::operator / (class real rhs)
 {
 	double answer=number()/rhs.number();
-	return real(answer, answer*((error()/number()) + (rhs.error()/rhs.number())));
+	return real(answer, abs(answer)*((error()/number()) + (rhs.error()/rhs.number())));
 }
 
 int real::operator == (class real rhs)
@@ -173,4 +174,9 @@ int real::operator > (int i)
 class real real::operator - ()
 {
 	return real(-number(), error());
+}
+
+class real sin(class real arg)
+{
+	return real(sin(arg.number())*cos(arg.error()), sin(arg.error())*cos(arg.number()));
 }

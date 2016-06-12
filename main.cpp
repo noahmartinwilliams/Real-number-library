@@ -6,6 +6,7 @@
 
 using namespace std;
 const double max_error=0.01;
+const double pi=3.141592;
 
 int main()
 {
@@ -37,6 +38,10 @@ int main()
 	a=a.combine(b);
 	assert(abs(1.5-a.number()) <= max_error);
 	assert(abs(0.5-a.error()) <= max_error);
+
+	a=real(pi/2.0, 180.0/pi);
+	a=sin(a);
+	assert(abs(a.error()-0.0002) <= 0.001);
 	return 0;
 }
 #endif

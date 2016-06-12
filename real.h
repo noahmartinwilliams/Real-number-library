@@ -43,4 +43,10 @@ class real {
 };
 #undef String
 
+#ifdef __REAL_CPP__
+class real sin(class real r);
+#else
+extern class real sin(class real r);
+#endif
+
 #endif
