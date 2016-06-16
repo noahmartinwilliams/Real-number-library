@@ -180,3 +180,8 @@ class real sin(class real arg)
 {
 	return real(sin(arg.number())*cos(arg.error()), sin(arg.error())*cos(arg.number()));
 }
+
+class real cos(class real arg)
+{
+	return real(cos(arg.number())*cos(arg.error()), sin(arg.number())*sin(arg.error()));
+}
