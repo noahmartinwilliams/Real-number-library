@@ -81,6 +81,9 @@ void test_atan2()
 {
 	class real y(1.0, 0.1), x(1.0, 0.1);
 	assert(abs(atan2(y, x).error()-0.1) <= 0.01);
+
+	y=real(-1.0, 0.1); x=real(1.0, 0.1);
+	assert(abs(atan2(y, x).number()+pi/4.0) <= 0.1);
 }
 
 int main()
