@@ -185,3 +185,12 @@ class real cos(class real arg)
 {
 	return real(cos(arg.number())*cos(arg.error()), sin(arg.number())*sin(arg.error()));
 }
+
+class real atan2(class real y, class real x)
+{
+	class real ret(0.0, 0.0);
+	double square=x.number()*x.number()+y.number()*y.number();
+	double x_d=abs(x.number()), y_d=abs(y.number());
+	ret=real(atan2(y_d, x_d), (y_d/square)*y.error()+(x_d/square)*x.error());
+	return ret;
+}

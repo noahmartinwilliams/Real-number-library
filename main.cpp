@@ -77,6 +77,12 @@ void test_cosine()
 	assert(abs(a.error())<= 0.02);
 }
 
+void test_atan2()
+{
+	class real y(1.0, 0.1), x(1.0, 0.1);
+	assert(abs(atan2(y, x).error()-0.1) <= 0.01);
+}
+
 int main()
 {
 	test_equality();
@@ -88,6 +94,7 @@ int main()
 	test_combine();
 	test_sine();
 	test_cosine();
+	test_atan2();
 
 	return 0;
 }
