@@ -79,9 +79,9 @@ int real::operator == (class real rhs)
 		return 0;
 }
 
+#ifndef ARDUINO
 real::operator String()
 {
-	#ifndef ARDUINO
 	char *n=NULL;
 	char *e=NULL;
 	asprintf(&n, "%F", number());
@@ -91,10 +91,8 @@ real::operator String()
 	free(n);
 	free(e);
 	return ret;
-	#else
-	return String(num, num_sig_figs)+String("±")+String(err, num_sig_figs);
-	#endif
 }
+#endif
 
 void real::operator = (class real rhs)
 {

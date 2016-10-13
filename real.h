@@ -2,9 +2,8 @@
 #define __REAL_H__
 
 #ifdef ARDUINO
-#include "Arduino.h"
-#endif
-#ifndef ARDUINO
+#include <Arduino.h>
+#else
 #include <string>
 #define String string
 using namespace std;
@@ -41,7 +40,9 @@ class real {
 	private:
 		double num, err;
 };
+#ifndef ARDUINO
 #undef String
+#endif
 
 #ifdef __REAL_CPP__
 class real sin(class real r);
