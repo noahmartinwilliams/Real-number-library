@@ -48,10 +48,12 @@ class real {
 class real sin(class real r);
 class real cos(class real r);
 class real atan2(class real y, class real x);
+class real sqrt(class real r);
 #else
 extern class real sin(class real r);
 extern class real cos(class real r);
 extern class real atan2(class real y, class real x);
+extern class real sqrt(class real r);
 #endif
 
 #endif

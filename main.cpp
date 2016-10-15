@@ -86,6 +86,12 @@ void test_atan2()
 	assert(abs(atan2(y, x).number()+pi/4.0) <= 0.1);
 }
 
+void test_sqrt()
+{
+	assert(sqrt(real(9.0, 0.0))==real(3.0, 0.0));
+	assert(sqrt(real(9.0, 6.0))==real(3.0, 1.0));
+}
+
 int main()
 {
 	test_equality();
@@ -98,6 +104,7 @@ int main()
 	test_sine();
 	test_cosine();
 	test_atan2();
+	test_sqrt();
 
 	return 0;
 }

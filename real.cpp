@@ -192,3 +192,9 @@ class real atan2(class real y, class real x)
 	ret=real(atan2(y.number(), x.number()), (y_d/square)*y.error()+(x_d/square)*x.error());
 	return ret;
 }
+
+class real sqrt(class real r)
+{
+	double s=sqrt(r.number());
+	return real(s, s*0.5*r.error()/r.number());
+}
