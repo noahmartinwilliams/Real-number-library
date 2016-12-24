@@ -3,6 +3,7 @@
 #include <assert.h>
 #include "real.h"
 #include <cmath>
+#include <cstring>
 
 using namespace std;
 const double max_error=0.01;
@@ -12,6 +13,11 @@ void test_equality()
 {
 	real a(1.0, 0.0), b(1.0, 0.0);
 	assert(a==b);
+
+	a = real(0.0, 0.0);
+	b = real(1.0, 0.1);
+
+	assert(! (a == b));
 }
 
 void test_addition()
@@ -92,6 +98,11 @@ void test_sqrt()
 	assert(sqrt(real(9.0, 6.0))==real(3.0, 1.0));
 }
 
+void test_ator()
+{
+	assert(ator(strdup("1.0±0.1")) == real(1.0, 0.1));
+}
+
 int main()
 {
 	test_equality();
@@ -105,6 +116,7 @@ int main()
 	test_cosine();
 	test_atan2();
 	test_sqrt();
+	test_ator();
 
 	return 0;
 }

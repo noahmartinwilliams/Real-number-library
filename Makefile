@@ -2,9 +2,9 @@ libreal.so: real.cpp
 	g++ -fPIC -shared -I . -c $^ -o $@
 
 
-main: real.o main.cpp
+test: real.o test.cpp
 	g++ $^ -o $@
-	./main
+	./test
 
 real.o: real.cpp
 	g++ -I . -c real.cpp -o real.o
@@ -12,7 +12,7 @@ real.o: real.cpp
 .PHONY:
 clean:
 	rm real.o || true
-	rm main || true
+	rm test || true
 	rm libreal.so || true
 
 install: libreal.so

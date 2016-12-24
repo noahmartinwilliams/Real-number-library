@@ -5,6 +5,7 @@
 #include <string>
 #include <cstdlib>
 #include <cstdio>
+#include <ctype.h>
 #include <iostream>
 #define String string
 using namespace std;
@@ -197,4 +198,28 @@ class real sqrt(class real r)
 {
 	double s=sqrt(r.number());
 	return real(s, s*0.5*r.error()/r.number());
+}
+
+class real ator(char *s)
+{
+	int x;
+	double value, offset;
+	char tmp;
+	for (x = 0; isdigit(s[x]) || s[x] == '.' ; x++) {}
+	tmp = s[x];
+	s[x]='\0';
+	value = strtod(s, NULL);
+
+	s[x] = tmp;
+
+	int y;
+	for (y = x + 1; isdigit(s[y]) || s[y] == '.' ; y++ ) {}
+
+	tmp = s[y];
+	s[y] = '\0';
+	offset = strtod(&s[x+1], NULL);
+
+	s[y] = tmp;
+
+	return real(value, offset);
 }
