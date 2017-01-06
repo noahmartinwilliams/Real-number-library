@@ -43,6 +43,11 @@ void test_multiplication()
 
 	a = real(1.0, 1.0) * real(0.0, 0.0);
 	assert(!isnan(a.error()));
+	assert(!isnan(a.number()));
+
+	a = real(0.0, 0.0) * real(0.0, 0.0);
+	assert(!isnan(a.error()));
+	assert(!isnan(a.number()));
 }
 
 void test_division()

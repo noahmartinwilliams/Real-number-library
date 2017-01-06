@@ -64,9 +64,10 @@ class real real::operator * (class real _rhs)
 {
 	class real rhs = _rhs;
 	double answer=number()*rhs.number();
-	if (abs(rhs.number()) < 0.0001) {
+	if (abs(rhs.number()) < 0.0001)
 		rhs.number(1.0);
-	}
+	if (abs(number()) < 0.0001) 
+		number(1.0);
 	return real(answer, abs(answer)*((error()/number()) + (rhs.error()/rhs.number())));
 }
 
