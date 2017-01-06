@@ -52,7 +52,7 @@ class real real::combine(class real rhs)
 {
 	double maximum=min(rhs.number()+rhs.error(), (*this).number()+(*this).error());
 	double minimum=max(rhs.number()-rhs.error(), (*this).number()-(*this).error());
-	return real((maximum+minimum)/2.0, (maximum-minimum)/2.0);
+	return real((maximum+minimum)/2.0, abs((maximum-minimum)/2.0));
 }
 
 class real real::operator - (class real rhs)
@@ -60,9 +60,13 @@ class real real::operator - (class real rhs)
 	return real(number()-rhs.number(), error()+rhs.error());
 }
 
-class real real::operator * (class real rhs)
+class real real::operator * (class real _rhs)
 {
+	class real rhs = _rhs;
 	double answer=number()*rhs.number();
+	if (abs(rhs.number()) < 0.0001) {
+		rhs.number(1.0);
+	}
 	return real(answer, abs(answer)*((error()/number()) + (rhs.error()/rhs.number())));
 }
 
@@ -177,12 +181,12 @@ class real real::operator - ()
 
 class real sin(class real arg)
 {
-	return real(sin(arg.number())*cos(arg.error()), sin(arg.error())*cos(arg.number()));
+	return real(sin(arg.number())*cos(arg.error()), abs(sin(arg.error())*cos(arg.number())));
 }
 
 class real cos(class real arg)
 {
-	return real(cos(arg.number())*cos(arg.error()), sin(arg.number())*sin(arg.error()));
+	return real(cos(arg.number())*cos(arg.error()), abs(sin(arg.number())*sin(arg.error())));
 }
 
 class real atan2(class real y, class real x)
@@ -190,14 +194,14 @@ class real atan2(class real y, class real x)
 	class real ret(0.0, 0.0);
 	double square=x.number()*x.number()+y.number()*y.number();
 	double x_d=abs(x.number()), y_d=abs(y.number());
-	ret=real(atan2(y.number(), x.number()), (y_d/square)*y.error()+(x_d/square)*x.error());
+	ret=real(atan2(y.number(), x.number()), abs((y_d/square)*y.error()+(x_d/square)*x.error()));
 	return ret;
 }
 
 class real sqrt(class real r)
 {
 	double s=sqrt(r.number());
-	return real(s, s*0.5*r.error()/r.number());
+	return real(s, abs(s*0.5*r.error()/r.number()));
 }
 
 class real ator(char *s)

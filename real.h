@@ -38,7 +38,7 @@ class real {
 		double number();
 		void number(double in);
 	private:
-		double num, err;
+		volatile double num, err;
 };
 #ifndef ARDUINO
 #undef String

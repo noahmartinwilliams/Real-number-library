@@ -40,6 +40,9 @@ void test_multiplication()
 	a=real(1.0, 2.0)*real(5.0, 2.0);
 	assert(abs(a.number()-5.0) < 0.01);
 	assert(abs(a.error() - 5.0*2.4) < 0.01);
+
+	a = real(1.0, 1.0) * real(0.0, 0.0);
+	assert(!isnan(a.error()));
 }
 
 void test_division()
@@ -117,6 +120,10 @@ int main()
 	test_atan2();
 	test_sqrt();
 	test_ator();
+	class real y(0.0, 0.0);
+	//18.548684±1.049953
+	y = y + real(18.548684, 1.049953) * real(0.0, 0.0);
+	assert(!isnan(y.error()));
 
 	return 0;
 }
