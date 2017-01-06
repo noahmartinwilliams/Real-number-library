@@ -74,7 +74,10 @@ class real real::operator * (class real _rhs)
 class real real::operator / (class real rhs)
 {
 	double answer=number()/rhs.number();
-	return real(answer, abs(answer)*((error()/number()) + (rhs.error()/rhs.number())));
+	if (abs(number()) > 0.0001)
+		return real(answer, abs(answer)*((error()/number()) + (rhs.error()/rhs.number())));
+	else
+		return real(answer, abs(answer)*((error()/1.0) + (rhs.error()/rhs.number())));
 }
 
 int real::operator == (class real rhs)

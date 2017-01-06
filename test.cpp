@@ -57,6 +57,10 @@ void test_division()
 	assert(abs(a.number()-0.2) < 0.01);
 	assert(abs(a.error() - 0.2*2.4) < 0.01);
 
+	a = real(0.0, 0.0) / real(1.0, 0.0);
+	assert(!isnan(a.error()));
+	assert(!isnan(a.number()));
+
 }
 
 void test_greater_than_less_than()
