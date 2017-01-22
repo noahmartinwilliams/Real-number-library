@@ -39,7 +39,7 @@ void test_multiplication()
 	class real a(0.0, 0.0);
 	a=real(1.0, 2.0)*real(5.0, 2.0);
 	assert(abs(a.number()-5.0) < 0.01);
-	assert(abs(a.error() - 5.0*2.4) < 0.01);
+	assert(abs(a.error() - (2.0 * 5.0 + 1.0 * 2.0 + 2.0 * 2.0)) < 0.01);
 
 	a = real(1.0, 1.0) * real(0.0, 0.0);
 	assert(!isnan(a.error()));
@@ -55,7 +55,7 @@ void test_division()
 	class real a(0.0, 0.0);
 	a=real(1.0, 2.0)/real(5.0, 2.0);
 	assert(abs(a.number()-0.2) < 0.01);
-	assert(abs(a.error() - 0.2*2.4) < 0.01);
+	assert(abs(a.error() - (2.0 * 5.0 + 2.0 * 1.0 + 2.0 * 2.0)) < 0.01);
 
 	a = real(0.0, 0.0) / real(1.0, 0.0);
 	assert(!isnan(a.error()));

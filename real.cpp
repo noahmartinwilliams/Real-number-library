@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <ctype.h>
 #include <iostream>
+#include <sstream>
 #define String string
 using namespace std;
 #else
@@ -64,20 +65,13 @@ class real real::operator * (class real _rhs)
 {
 	class real rhs = _rhs;
 	double answer=number()*rhs.number();
-	if (abs(rhs.number()) < 0.0001)
-		rhs.number(1.0);
-	if (abs(number()) < 0.0001) 
-		number(1.0);
-	return real(answer, abs(answer)*((error()/number()) + (rhs.error()/rhs.number())));
+	return real(answer, abs(number()*rhs.error()) + abs(error() * rhs.number()) + error() * rhs.error());
 }
 
 class real real::operator / (class real rhs)
 {
 	double answer=number()/rhs.number();
-	if (abs(number()) > 0.0001)
-		return real(answer, abs(answer)*((error()/number()) + (rhs.error()/rhs.number())));
-	else
-		return real(answer, abs(answer)*((error()/1.0) + (rhs.error()/rhs.number())));
+	return real(answer, abs(number()*rhs.error()) + abs(error() * rhs.number()) + error() * rhs.error());
 }
 
 int real::operator == (class real rhs)
@@ -91,15 +85,9 @@ int real::operator == (class real rhs)
 #ifndef ARDUINO
 real::operator String()
 {
-	char *n=NULL;
-	char *e=NULL;
-	asprintf(&n, "%F", number());
-	asprintf(&e, "%F", error());
-	string n_s(n), e_s(e);
-	string ret=n_s+"±"+e_s;
-	free(n);
-	free(e);
-	return ret;
+	stringstream s;
+	s << number() << "±" << error();
+	return s.str();
 }
 #endif
 
