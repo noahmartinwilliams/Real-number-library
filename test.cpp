@@ -113,6 +113,7 @@ void test_sqrt()
 void test_ator()
 {
 	assert(ator(strdup("1.0±0.1")) == real(1.0, 0.1));
+	assert(ator(strdup("-29.000±0.000")) == real(-29.0, 0.0));
 }
 
 int main()

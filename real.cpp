@@ -201,7 +201,7 @@ class real ator(char *s)
 	int x;
 	double value, offset;
 	char tmp;
-	for (x = 0; isdigit(s[x]) || s[x] == '.' ; x++) {}
+	for (x = 0; isdigit(s[x]) || s[x] == '.' || s[x] == '-' ; x++) {}
 	tmp = s[x];
 	s[x]='\0';
 	value = strtod(s, NULL);
@@ -209,7 +209,7 @@ class real ator(char *s)
 	s[x] = tmp;
 
 	int y;
-	for (y = x + 1; isdigit(s[y]) || s[y] == '.' ; y++ ) {}
+	for (y = x + 1; isdigit(s[y]) || s[y] == '.' || s[y] == '-' ; y++ ) {}
 
 	tmp = s[y];
 	s[y] = '\0';
