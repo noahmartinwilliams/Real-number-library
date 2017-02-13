@@ -8,6 +8,7 @@
 #include <ctype.h>
 #include <iostream>
 #include <sstream>
+#include <iomanip>
 #define String string
 using namespace std;
 #else
@@ -86,7 +87,7 @@ int real::operator == (class real rhs)
 real::operator String()
 {
 	stringstream s;
-	s << number() << "±" << error();
+	s << fixed << setprecision(3) << number() << "±" << error();
 	return s.str();
 }
 #endif
