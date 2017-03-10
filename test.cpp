@@ -91,8 +91,11 @@ void test_cosine()
 {
 	class real a(pi/4.0, pi/180.0);
 	a=cos(a);
-	assert(abs(a.number()-sqrt(0.5)) <= 0.01);
-	assert(abs(a.error())<= 0.02);
+	assert(fabs(a.number()-sqrt(0.5)) <= 0.01);
+	assert(fabs(a.error())<= 0.02);
+
+	class real b(0.0, 0.0);
+	assert(fabs(cos(b).number() - 1.0) <= 0.01);
 }
 
 void test_atan2()
